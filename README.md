@@ -1,6 +1,6 @@
 # gobbgobb.clj
 
-Advanced tik tac toe in clojure.
+Advanced tic tac toe in clojure.
 
 ## Usage
 
