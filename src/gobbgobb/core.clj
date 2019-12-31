@@ -1,16 +1,18 @@
 (ns gobbgobb.core
-    (:require [ring.adapter.jetty :as server]))
+    (:require 
+      [compojure.core :refer [routes]]
+      [ring.adapter.jetty :as server]
+      [gobbgobb.handler.main :refer [main-routes]]))
 
 (defonce server (atom nil))
 
-(defn tmp-handler [req]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Hello, world!"})
+(def app
+  (routes
+    main-routes))
 
 (defn start-server []
   (when-not @server
-            (reset! server (server/run-jetty #'tmp-handler {:port 3000 :join? false}))))
+            (reset! server (server/run-jetty #'app {:port 3000 :join? false}))))
 
 (defn stop-server []
   (when @server
